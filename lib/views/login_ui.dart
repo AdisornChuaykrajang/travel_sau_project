@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
+// ignore_for_file: unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_sau_project/models/user.dart';
 import 'package:travel_sau_project/utils/db_helper.dart';
 import 'package:travel_sau_project/views/home_ui.dart';
@@ -14,12 +15,13 @@ class LoginUI extends StatefulWidget {
 }
 
 class _LoginUIState extends State<LoginUI> {
+//variable
   bool pwdStatus = true;
-  bool chkStatus = false;
+//ctrl
 
   TextEditingController usernameCtrl = TextEditingController(text: '');
   TextEditingController passwordCtrl = TextEditingController(text: '');
-
+//warning message method
   showWarningMessage(context, msg) async {
     return showDialog(
       context: context,
@@ -47,14 +49,19 @@ class _LoginUIState extends State<LoginUI> {
         backgroundColor: Colors.amber,
         title: Text(
           'บันทึกการเดินทาง',
-          style: TextStyle(color: Colors.grey[800]),
+          style: GoogleFonts.kanit(
+            color: Colors.black,
+          ),
         ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
+            padding: EdgeInsets.only(
+              left: 50,
+              right: 50,
+            ),
             child: Column(
               children: [
                 SizedBox(
@@ -62,53 +69,57 @@ class _LoginUIState extends State<LoginUI> {
                 ),
                 Image.asset(
                   'assets/images/logo.png',
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.4,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.04,
                 ),
                 Text(
                   'เข้าใช้งานแอปพลิเคชัน',
-                  style: TextStyle(
-                      color: Colors.grey[800],
-                      fontSize: MediaQuery.of(context).size.height * 0.02,
-                      fontWeight: FontWeight.bold),
+                  style: GoogleFonts.kanit(
+                    color: Colors.grey[800],
+                    fontSize: MediaQuery.of(context).size.height * 0.020,
+                  ),
                 ),
                 Text(
                   'บันทึกการเดินทาง',
-                  style: TextStyle(
-                      color: Colors.amber,
-                      fontSize: MediaQuery.of(context).size.height * 0.02,
-                      fontWeight: FontWeight.bold),
+                  style: GoogleFonts.kanit(
+                    color: Colors.amber,
+                    fontSize: MediaQuery.of(context).size.height * 0.020,
+                  ),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.04,
                 ),
+                //TextField
                 Row(
                   children: [
                     Text(
                       'ชื่อผู้ใช้ :',
-                      style: TextStyle(
-                          color: Colors.grey[800],
-                          fontSize: MediaQuery.of(context).size.height * 0.02,
-                          fontWeight: FontWeight.bold),
+                      style: GoogleFonts.kanit(
+                        color: Colors.grey[800],
+                        fontSize: MediaQuery.of(context).size.height * 0.020,
+                      ),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 TextField(
                   controller: usernameCtrl,
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.02,
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 Row(
                   children: [
                     Text(
                       'รหัสผ่าน :',
-                      style: TextStyle(
-                          color: Colors.grey[800],
-                          fontSize: MediaQuery.of(context).size.height * 0.02,
-                          fontWeight: FontWeight.bold),
+                      style: GoogleFonts.kanit(
+                        color: Colors.grey[800],
+                        fontSize: MediaQuery.of(context).size.height * 0.020,
+                      ),
                     ),
                   ],
                 ),
@@ -117,20 +128,19 @@ class _LoginUIState extends State<LoginUI> {
                   obscureText: pwdStatus,
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              pwdStatus = pwdStatus == true ? false : true;
-                            });
-                          },
-                          icon: Icon(
-                            pwdStatus == true
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            color: Colors.amber,
-                          ))),
+                    onPressed: () {
+                      setState(() {
+                        pwdStatus = pwdStatus == true ? false : true;
+                      });
+                    },
+                    icon: Icon(pwdStatus == true
+                        ? Icons.visibility_off
+                        : Icons.visibility),
+                    color: Colors.amber,
+                  )),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.04,
+                  height: MediaQuery.of(context).size.height * 0.06,
                 ),
                 ElevatedButton(
                   onPressed: () async {
@@ -146,8 +156,12 @@ class _LoginUIState extends State<LoginUI> {
                         showWarningMessage(
                             context, 'ชื่อผู้ใช้ รหัสผ่านไม่ถูกต้อง');
                       } else {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => HomeUI()));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeUI(
+                                      user: user,
+                                    )));
                       }
                     }
                   },
@@ -164,36 +178,29 @@ class _LoginUIState extends State<LoginUI> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.04,
-                ),
                 CheckboxListTile(
-                  controlAffinity: ListTileControlAffinity.leading,
-                  title: Text(
-                    'จำค่าการเข้าใช่งานแอปฯ',
-                  ),
-                  value: chkStatus,
-                  activeColor: Colors.amber,
                   onChanged: (paraValue) {
-                    setState(() {
-                      chkStatus = paraValue!;
-                    });
+                    setState(() {});
                   },
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.04,
+                  value: false,
+                  title: Text(
+                    'จำค่าการเข้าใช้งานแอปฯ',
+                  ),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  checkColor: Colors.red,
+                  activeColor: Colors.orange,
+                  side: BorderSide(color: Colors.blue),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RegisterUI(),
-                        ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RegisterUI(),
+                      ),
+                    );
                   },
-                  child: Text(
-                    'ลงทะเบียนเข้าใช้งาน',
-                  ),
+                  child: Text('ลงทะเบียนเข้า้งาน'),
                 )
               ],
             ),

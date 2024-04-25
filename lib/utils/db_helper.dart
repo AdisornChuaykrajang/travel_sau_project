@@ -1,55 +1,55 @@
-// ignore_for_file: unused_local_variable, prefer_is_empty
+// ignore_for_file: prefer_is_empty, avoid_returning_null_for_void, null_check_always_fails
+
 
 import 'package:sqflite/sqflite.dart';
 import 'package:travel_sau_project/models/travel.dart';
 import 'package:travel_sau_project/models/user.dart';
-import 'package:travel_sau_project/views/register_ui.dart';
 
 class DBHelper {
   static Future<Database> db() async {
     return openDatabase('travelrecord.db', version: 1,
         onCreate: (Database database, int version) async {
+      //สร้างตาราง
       await createUserTable(database);
       await createTravelTable(database);
     });
   }
 
-//method create User table
   static Future<void> createUserTable(Database database) async {
     await database.execute('''
-    create table IF NOT EXISTS usertb(
-      id integer primary key autoincrement not null ,
-      fullname text ,
-      email text ,
-      phone text ,
-      username text ,
-      password text ,
-      picture text 
-    )
-    ''');
+  create table usertb(
+    id integer primary key autoincrement not null,
+    fullname text,
+    email text,
+    phone text,
+    username text,
+    password text,
+    picture text
+  )
+''');
   }
 
-//method create Travel table
   static Future<void> createTravelTable(Database database) async {
     await database.execute('''
-    create table IF NOT EXISTS usertb(
-      id integer primary key autoincrement not null ,
-      pictureTravel text ,
-      placeTravel text ,
-      costTravel text ,
-      dateTravel text ,
-      dayTravel text ,
-      locationTravel text 
-    )
-    ''');
+  create table traveltb(
+    id integer primary key autoincrement not null,
+    pictureTravel text,
+    placeTravel text,
+    costTravel text,
+    dateTravel text,
+    dayTravel text,
+    locationTravel text
+  )
+''');
   }
 
+//บันทึกข้อมูล User
   static Future<int> insertUser(User user) async {
     final db = await DBHelper.db();
 
     final id = await db.insert(
-      'usertb', //ชื่อดารางที่สร้างไว้
-      user.toMap(), //น่าข้อมูลใส่ลงในตารางให้ตรงกับคอลัมภ์ในตาราง
+      'usertb',
+      user.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     return id;
@@ -59,8 +59,8 @@ class DBHelper {
     final db = await DBHelper.db();
 
     final id = await db.insert(
-      'usertb', //ชื่อดารางที่สร้างไว้
-      travel.toMap(), //น่าข้อมูลใส่ลงในตารางให้ตรงกับคอลัมภ์ในตาราง
+      'traveltb',
+      travel.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     return id;
@@ -79,5 +79,19 @@ class DBHelper {
     } else {
       return null;
     }
+  }
+
+  //ดึงข้อมูลทั้งหมดจาก travel
+  static Future<List<Travel>> getAllTravel() async {
+    //ติดต่อ DB
+    final db = await DBHelper.db();
+
+    //ดึงข้อมูลเก็บในตัวแปร
+    final result = await db.query(
+      'traveltb',
+      orderBy: 'id DESC',
+    );
+
+    return result.map((data) => Travel.fromMap(data)).toList();
   }
 }
