@@ -1,16 +1,6 @@
 # travel_sau_project
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![screenshot-1715693197079](https://github.com/AdisornNangnoi/travel_sau_project/assets/113957028/d5c7ecd7-fdd7-48de-a28c-0d71c0166506)
+![screenshot-1715693219510](https://github.com/AdisornNangnoi/travel_sau_project/assets/113957028/f4b76df8-8791-4158-89f0-afdf1d482a61)
+![screenshot-1715693512586](https://github.com/AdisornNangnoi/travel_sau_project/assets/113957028/667e2844-8342-4084-9cc0-cae90151e503)
+![image](https://github.com/AdisornNangnoi/travel_sau_project/assets/113957028/74049383-f982-457a-8fcc-70a1c93e9d56)
